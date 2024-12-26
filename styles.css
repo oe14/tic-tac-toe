@@ -1,16 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+body{ 
+display: flex;
+flex-direction:column;
+justify-content:center; 
+align-items: center;
+}
 #gameboard{ 
-	width: 300px;
+width: 500px;
 display: grid;
-grid-template-columns: 100px 100px 100px;
-grid-template-rows: 100px 100px 100px;
+grid-template-columns: repeat(3, 1fr);
+grid-template-rows: 150px 150px 150px;
 
 border-width: 4px;
+
 gap: 10px;
-
-
-
 
  }
 
 .slots{ 
-background-color: grey }
+
+background-color: #764C4D }
+
+
+.btns{ 
+
+height: 100px;
+background-color: #1A0004;
+
+  font-family: "Roboto", serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 40px;
+  color: #764C4D;
+  border-radius: 10px;
+
+ }
+ .btnsContainer{ 
+ display: grid;
+ grid-template-columns: 1fr 1fr ; 
+gap: 10px;
+margin-top: 10px;
+}
+
+.btns:hover{ 
+	background-color: #A1544D;
+	color: #1A0004;
+ }
