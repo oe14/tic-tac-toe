@@ -6,12 +6,17 @@ flex-direction:column;
 justify-content:center; 
 align-items: center;
 background-color: #764C4D;
+
+
+
+
 }
 #gameboard{ 
+
 width: 500px;
 display: grid;
 grid-template-columns: repeat(3, 1fr);
-grid-template-rows: 150px 150px 150px;
+grid-template-rows: 20vh 20vh 20vh;
 
 border-width: 4px;
 
@@ -36,14 +41,17 @@ font-family: serif;
 
 
 
-.slots{ 
+.cell{ 
 
-background-color: #1A0004 }
-
-
+background-color: #1A0004 ;
+color: white;
+font-size: 36px;
+text-align: center;
+padding-top: 50px;
+}
 .btns{ 
 
-height: 100px;
+height: 10vh;
 width: 200px;
 background-color: #1A0004;
 
