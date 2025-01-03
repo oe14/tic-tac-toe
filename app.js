@@ -32,38 +32,29 @@ const GameBoard = (() => {
     return { render, updateCell, reset, getBoard };
 })();
 
-const Player = (name, symbol) => {
-    return { name, symbol };
-};
-
 const Game = (() => {
-    let players = [];
-    let currentPlayerIndex = 0;
+    let currentPlayer = "X";
+    let gameStarted = false;
     let gameOver = false;
 
     const startGame = () => {
-        const player1Name = prompt("Enter name for Player 1:") || "Player 1";
-        const player2Name = prompt("Enter name for Player 2:") || "Player 2";
-
-        players = [Player(player1Name, "X"), Player(player2Name, "O")];
-        currentPlayerIndex = 0;
+        currentPlayer = "X";
+        gameStarted = true;
         gameOver = false;
         GameBoard.reset();
-        DisplayController.setMessage(`${players[currentPlayerIndex].name}'s turn`);
+        DisplayController.setMessage(`X's turn`);
     };
 
     const handleCellClick = (e) => {
-        if (gameOver) return;
+        if (!gameStarted || gameOver) return;
 
         const index = e.target.dataset.index;
         const board = GameBoard.getBoard();
 
         if (!board[index]) {
-            const currentPlayer = players[currentPlayerIndex];
-            if (GameBoard.updateCell(index, currentPlayer.symbol)) {
-                if (checkWin(board, currentPlayer.symbol)) {
-                	
-                    DisplayController.setMessage(`${currentPlayer.name} wins!`);
+            if (GameBoard.updateCell(index, currentPlayer)) {
+                if (checkWin(board, currentPlayer)) {
+                    DisplayController.setMessage(`${currentPlayer} wins!`);
                     gameOver = true;
                     return;
                 } else if (checkTie(board)) {
@@ -71,16 +62,14 @@ const Game = (() => {
                     gameOver = true;
                     return;
                 }
-                currentPlayerIndex = (currentPlayerIndex + 1) % 2;
-                DisplayController.setMessage(`${players[currentPlayerIndex].name}'s turn`);
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                DisplayController.setMessage(`${currentPlayer}'s turn`);
             }
         }
     };
 
     const restartGame = () => {
-        gameOver = false;
-        GameBoard.reset();
-        DisplayController.setMessage(`${players[currentPlayerIndex].name}'s turn`);
+        startGame();
     };
 
     const checkWin = (board, symbol) => {
@@ -95,7 +84,7 @@ const Game = (() => {
             [2, 4, 6],
         ];
 
-        return winConditions.some(condition => 
+        return winConditions.some(condition =>
             condition.every(index => board[index] === symbol)
         );
     };
@@ -117,12 +106,29 @@ const Game = (() => {
 const DisplayController = (() => {
     const setMessage = (message) => {
         const messageDiv = document.getElementById("message");
+        let messageType = "";
+
+        if (message.includes("wins")) {
+            messageType = "win";
+        } else if (message.includes("tie")) {
+            messageType = "tie";
+        }
+
         if (messageDiv) {
             messageDiv.textContent = message;
+            messageDiv.className = "";
+            messageDiv.classList.add("message");
+            if (messageType) {
+                messageDiv.classList.add(messageType);
+            }
         } else {
             const newMessageDiv = document.createElement("div");
             newMessageDiv.id = "message";
             newMessageDiv.textContent = message;
+            newMessageDiv.classList.add("message");
+            if (messageType) {
+                newMessageDiv.classList.add(messageType);
+            }
             document.body.insertBefore(newMessageDiv, document.getElementById("gameboard"));
         }
     };
@@ -131,5 +137,3 @@ const DisplayController = (() => {
 })();
 
 Game.initialize();
-
-

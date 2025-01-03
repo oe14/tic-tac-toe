@@ -73,3 +73,35 @@ margin-top: 10px;
 	background-color: #A1544D;
 	color: #1A0004;
  }
+
+
+
+#message {
+    text-align: center; 
+    font-size: 1.5em;  
+    font-weight: bold;  
+    margin: 20px auto; 
+    padding: 10px;  
+    color: #A1544D;  
+    background-color: #1A0004;
+    border-radius: 10px; 
+    width: 80%;  
+    max-width: 400px;  
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+    transition: background-color 0.3s ease, color 0.3s ease;  
+}
+
+#message.win {
+    background-color: #28a745;  
+    color: #ffffff;  
+}
+
+#message.tie {
+    background-color: #ffc107;  
+    color: #000000;  
+}
+
+#message.turn {
+    background-color: #007bff;  
+    color: #ffffff;  
+}
